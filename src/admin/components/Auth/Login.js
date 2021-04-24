@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { login } from '../../store/actions/authAction';
+import { adminLogin } from '../../../store/actions/AdminAuthAction';
 
 const Login = () => {
-    const [user, setUser] = useState({});
-    const { authenticate } = useSelector((state) => state.auth);
+    const [user, setUser] = useState({
+        role: 'admin',
+    });
+    const { authenticate } = useSelector((state) => state.adminAuth);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const { from } = location.state || { from: { pathname: '/' } };
+    const { from } = location.state || { from: { pathname: '/admin/dashboard' } };
 
     const inputHandler = (event) => {
         const { name, value } = event.target;
@@ -22,18 +24,19 @@ const Login = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        dispatch(login(user, history, from));
+
+        dispatch(adminLogin(user, history, from));
     };
 
     if (authenticate) {
-        return <Redirect to="/" />;
+        return <Redirect to="/admin/admin/dashboard" />;
     }
 
     return (
         <div className="container">
             <div className="col-md-6 mx-auto  mt-5">
                 <form onSubmit={submitHandler} className="bg-light p-5 rounded">
-                    <h2 className="py-2">Sign IN</h2>
+                    <h3 className="py-2">Admin Sign In</h3>
                     <div className="mb-3">
                         <label htmlFor="email">Email</label>
                         <input

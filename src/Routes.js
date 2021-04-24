@@ -1,20 +1,32 @@
+import { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Admin from './admin/pages/Admin';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
-import Home from './components/Home/Home';
+import Header from './components/Shared/Header/Header';
 import PrivateRoute from './PrivateRoute';
+
+const Home = lazy(() => import('./components/Home/Home'));
 
 const Routes = () => {
     return (
         <Switch>
             <PrivateRoute exact path="/">
-                <Home />
+                <Header />
+                <Suspense fallback={<div> Loading...</div>}>
+                    <Home />
+                </Suspense>
             </PrivateRoute>
             <Route path="/sign-up">
+                <Header />
                 <SignUp />
             </Route>
             <Route path="/login">
+                <Header />
                 <Login />
+            </Route>
+            <Route path="/admin/dashboard">
+                <Admin />
             </Route>
         </Switch>
     );

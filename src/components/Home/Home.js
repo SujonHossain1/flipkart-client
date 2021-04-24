@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
-const Home = () => {
+const Home = memo(() => {
     useEffect(() => {
         (async () => {
             const { data } = await axios.get('/api/products');
             console.log(data);
         })();
     }, []);
+
+    // getData();
     return (
         <div className="container bg-light rounded p-5 mt-4 ">
             <div className="row">
@@ -27,6 +29,6 @@ const Home = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Home;

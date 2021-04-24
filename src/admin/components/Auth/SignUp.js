@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 const SignUp = () => {
     const [user, setUser] = useState({});
-    const { authenticate } = useSelector((state) => state.auth);
+    const { authenticate } = useSelector((state) => state.adminAuth);
 
     const inputHandler = (event) => {
         const { name, value } = event.target;
@@ -21,7 +21,7 @@ const SignUp = () => {
     };
 
     if (authenticate) {
-        return <Redirect to="/" />;
+        return <Redirect to="/admin/admin/dashboard" />;
     }
 
     return (

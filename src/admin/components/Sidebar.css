@@ -1,0 +1,11 @@
+.admin__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ede7f6;
+    z-index: -1;
+    padding-top: 60px;
+    height: 100%;
+    width: 220px;
+    overflow: hidden;
+}
