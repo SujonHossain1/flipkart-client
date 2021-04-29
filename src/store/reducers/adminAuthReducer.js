@@ -33,6 +33,11 @@ const adminAuthReducer = (state = init, action) => {
                 message: action.payload.message,
             };
 
+        case Types.ADMIN_LOGOUT_REQUEST:
+            return {
+                ...init,
+            };
+
         default:
             return state;
     }

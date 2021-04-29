@@ -7,7 +7,6 @@ import Sidebar from '../components/Sidebar';
 import AdminHome from './AdminHome';
 
 const Admin = ({ match }) => {
-    console.log(match);
     return (
         <>
             <Header />

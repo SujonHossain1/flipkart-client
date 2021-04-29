@@ -3,9 +3,24 @@
     top: 0;
     left: 0;
     background: #ede7f6;
-    z-index: -1;
+    z-index: 0;
     padding-top: 60px;
     height: 100%;
     width: 220px;
     overflow: hidden;
+}
+.admin__sidebar__links {
+    padding: 0;
+    list-style: none;
+}
+.admin__sidebar__link {
+    background: #555;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+.admin__sidebar__link a {
+    color: #fff;
+    text-decoration: none;
 }
