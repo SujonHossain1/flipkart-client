@@ -12,7 +12,14 @@ const Header = () => {
     };
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ zIndex: '2' }}>
+        <Navbar
+            collapseOnSelect
+            expand="lg"
+            bg="dark"
+            className="sticky-top"
+            variant="dark"
+            style={{ zIndex: '2' }}
+        >
             <Container>
                 <Link to="/admin/dashboard" style={{ textDecoration: 'none' }}>
                     <Navbar.Brand>Admin-Dashboard</Navbar.Brand>
@@ -21,7 +28,11 @@ const Header = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">
                         {authenticate ? (
-                            <button type="button" className="nav-link" onClick={signOutHandler}>
+                            <button
+                                type="button"
+                                className="nav-link btn btn-danger btn-sm"
+                                onClick={signOutHandler}
+                            >
                                 Sign Out
                             </button>
                         ) : (

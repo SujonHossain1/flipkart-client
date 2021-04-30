@@ -1,9 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const AdminPrivateRoute = ({ children, ...rest }) => {
-    const token = localStorage.getItem('admin-auth-token');
+    const { authenticate } = useSelector((state) => state.adminAuth);
+    const hasToken = localStorage.getItem('admin-auth-token');
+    const [token, setToken] = useState(hasToken);
+
+    useEffect(() => {
+        setToken(hasToken);
+    }, [authenticate, hasToken]);
 
     return (
         <Route

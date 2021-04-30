@@ -24,12 +24,11 @@ const Login = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-
         dispatch(adminLogin(user, history, from));
     };
 
     if (authenticate) {
-        return <Redirect to="/admin/admin/dashboard" />;
+        return <Redirect to="/admin/dashboard" />;
     }
 
     return (

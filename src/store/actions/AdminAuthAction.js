@@ -14,6 +14,8 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
             localStorage.setItem('admin-auth-token', `Bearer ${token}`);
             localStorage.setItem('auth-admin', JSON.stringify(user));
 
+            console.log(res.data);
+
             history.push(from);
 
             dispatch({
@@ -33,6 +35,8 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
             });
         }
     } catch (error) {
+        console.log(error);
+
         dispatch({
             type: Types.ADMIN_LOGIN_FAILURE,
             payload: {
@@ -42,35 +46,35 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
     }
 };
 
-export const adminSignIn = (userInfo, history, from) => async (dispatch) => {
-    dispatch({ type: Types.ADMIN_LOGIN_REQUEST });
+export const adminSignUp = (userInfo) => async (dispatch) => {
+    dispatch({ type: Types.ADMIN_SIGNUP_REQUEST });
 
     try {
         const res = await admin.post('/api/admin/sign-up', userInfo);
 
         if (res.status === 201) {
             const { message } = res.data;
-            history.push(from);
+            // history.push('/admin/dashboard');
 
             dispatch({
-                type: Types.ADMIN_LOGIN_SUCCESS,
+                type: Types.ADMIN_SIGNUP_SUCCESS,
                 payload: {
                     message,
                 },
             });
         } else {
             dispatch({
-                type: Types.ADMIN_LOGIN_FAILURE,
+                type: Types.ADMIN_SIGNUP_FAILURE,
                 payload: {
-                    message: res.data.error,
+                    error: res.data.error,
                 },
             });
         }
     } catch (error) {
         dispatch({
-            type: Types.ADMIN_LOGIN_FAILURE,
+            type: Types.ADMIN_SIGNUP_FAILURE,
             payload: {
-                message: error?.response?.data?.message || error.message || 'Something went wrong!',
+                error: error?.response?.data?.error || error.message || 'Something went wrong!',
             },
         });
     }
@@ -98,6 +102,7 @@ export const isAdminLogin = () => (dispatch) => {
 
 export const adminSignOut = () => (dispatch) => {
     localStorage.removeItem('admin-auth-token');
+    localStorage.removeItem('auth-admin');
     dispatch({
         type: Types.ADMIN_LOGOUT_REQUEST,
     });

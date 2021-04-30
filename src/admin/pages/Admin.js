@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { isAdminLogin } from '../../store/actions/AdminAuthAction';
 import AdminPrivateRoute from '../AdminPrivateRoute';
 import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
@@ -7,6 +10,12 @@ import Sidebar from '../components/Sidebar';
 import AdminHome from './AdminHome';
 
 const Admin = ({ match }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(isAdminLogin());
+    }, [dispatch]);
+
     return (
         <>
             <Header />
@@ -20,10 +29,10 @@ const Admin = ({ match }) => {
                             <AdminPrivateRoute exact path={`${match.path}/`}>
                                 <AdminHome />
                             </AdminPrivateRoute>
-                            <Route exact path={`${match.path}/sign-up`}>
+                            <Route path={`${match.path}/sign-up`}>
                                 <SignUp />
                             </Route>
-                            <Route exact path={`${match.path}/login`}>
+                            <Route path={`${match.path}/login`}>
                                 <Login />
                             </Route>
                         </Switch>
