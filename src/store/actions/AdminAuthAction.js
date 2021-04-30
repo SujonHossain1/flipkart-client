@@ -30,7 +30,7 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
             dispatch({
                 type: Types.ADMIN_LOGIN_FAILURE,
                 payload: {
-                    message: res.data.error,
+                    error: res.data.error,
                 },
             });
         }
@@ -40,7 +40,7 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
         dispatch({
             type: Types.ADMIN_LOGIN_FAILURE,
             payload: {
-                message: error?.response?.data?.message || error.message || 'Something went wrong!',
+                error: error?.response?.data?.message || error.message || 'Something went wrong!',
             },
         });
     }
@@ -66,7 +66,7 @@ export const adminSignUp = (userInfo) => async (dispatch) => {
             dispatch({
                 type: Types.ADMIN_SIGNUP_FAILURE,
                 payload: {
-                    error: res.data.error,
+                    error: res.data.error || 'Something went wrong!',
                 },
             });
         }
@@ -94,16 +94,34 @@ export const isAdminLogin = () => (dispatch) => {
             type: Types.ADMIN_LOGIN_FAILURE,
             payload: {
                 authenticate: false,
-                message: 'Failed to login Admin!',
+                error: 'Admin login to Failed!, Please Login',
             },
         });
     }
 };
 
-export const adminSignOut = () => (dispatch) => {
-    localStorage.removeItem('admin-auth-token');
-    localStorage.removeItem('auth-admin');
-    dispatch({
-        type: Types.ADMIN_LOGOUT_REQUEST,
-    });
+export const adminSignOut = () => async (dispatch) => {
+    dispatch({ type: Types.ADMIN_LOGOUT_REQUEST });
+
+    try {
+        const res = await admin.post('/api/admin/sign-out');
+        if (res.status === 200) {
+            localStorage.removeItem('admin-auth-token');
+            localStorage.removeItem('auth-admin');
+
+            dispatch({
+                type: Types.ADMIN_LOGOUT_SUCCESS,
+            });
+        } else {
+            dispatch({
+                type: Types.ADMIN_LOGOUT_FAILURE,
+                error: res.data.error || 'SignOut Failed',
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: Types.ADMIN_LOGOUT_FAILURE,
+            error: 'SignOut Failed',
+        });
+    }
 };

@@ -6,6 +6,8 @@ const init = {
     message: '',
     authenticate: false,
     authenticating: false,
+    loading: false,
+    error: '',
 };
 
 const adminAuthReducer = (state = init, action) => {
@@ -24,18 +26,31 @@ const adminAuthReducer = (state = init, action) => {
                 user: action.payload.user,
                 token: action.payload.token,
                 message: action.payload.message,
+                error: '',
             };
 
         case Types.ADMIN_LOGIN_FAILURE:
             return {
                 ...state,
                 authenticate: false,
-                message: action.payload.message,
+                error: action.payload.error,
+                message: '',
             };
 
         case Types.ADMIN_LOGOUT_REQUEST:
             return {
+                ...state,
+                loading: true,
+            };
+        case Types.ADMIN_LOGOUT_SUCCESS:
+            return {
                 ...init,
+            };
+        case Types.ADMIN_LOGOUT_FAILURE:
+            return {
+                ...state,
+                error: action.payload.error,
+                loading: false,
             };
 
         default:

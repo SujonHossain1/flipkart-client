@@ -7,7 +7,7 @@ const Login = () => {
     const [user, setUser] = useState({
         role: 'admin',
     });
-    const { authenticate } = useSelector((state) => state.adminAuth);
+    const { authenticate, error, message } = useSelector((state) => state.adminAuth);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -36,6 +36,8 @@ const Login = () => {
             <div className="col-md-6 mx-auto  mt-5">
                 <form onSubmit={submitHandler} className="bg-light p-5 rounded">
                     <h3 className="py-2">Admin Sign In</h3>
+                    {error && <p style={{ color: 'red' }}>{error} </p>}
+                    {message && <p style={{ color: 'green' }}>{message} </p>}
                     <div className="mb-3">
                         <label htmlFor="email">Email</label>
                         <input
