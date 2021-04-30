@@ -1,7 +1,12 @@
+import Sidebar from '../components/Sidebar';
+
 const AdminHome = () => {
     return (
-        <div>
-            <h1>Admin Home</h1>
+        <div className="row">
+            <Sidebar />
+            <div className="col-md-10">
+                <h2>Hello Admin</h2>
+            </div>
         </div>
     );
 };

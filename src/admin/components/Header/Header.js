@@ -22,7 +22,7 @@ const Header = () => {
         >
             <Container>
                 <Link to="/admin/dashboard" style={{ textDecoration: 'none' }}>
-                    <Navbar.Brand>Admin-Dashboard</Navbar.Brand>
+                    <Navbar.Brand>Admin Dashboard</Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
