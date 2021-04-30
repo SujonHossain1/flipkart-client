@@ -1,13 +1,10 @@
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout/Layout';
 
 const AdminHome = () => {
     return (
-        <div className="row">
-            <Sidebar />
-            <div className="col-md-10">
-                <h2>Hello Admin</h2>
-            </div>
-        </div>
+        <Layout>
+            <h2>Hello Admin My Website </h2>
+        </Layout>
     );
 };
 

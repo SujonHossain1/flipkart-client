@@ -49,7 +49,7 @@ const adminAuthReducer = (state = init, action) => {
         case Types.ADMIN_LOGOUT_FAILURE:
             return {
                 ...state,
-                error: action.payload.error,
+                error: action.payload?.error || 'Sign Out Failed',
                 loading: false,
             };
 

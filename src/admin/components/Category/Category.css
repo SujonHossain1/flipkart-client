@@ -1,0 +1,65 @@
+.input__group {
+    padding-bottom: 15px;
+}
+.input__group input {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    display: block;
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+    color: #000 !important;
+    padding-left: 11px;
+}
+
+.input__group input:focus {
+    border: 1px solid #e2e8f0;
+    outline: none;
+}
+.input__select__group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+    padding: 2px 10px;
+}
+
+.input__select {
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+}
+.input__select:focus {
+    outline: none;
+    border: none;
+}
+.input__group label {
+    margin-bottom: 0.25rem;
+    color: #718096;
+    font-size: 13px;
+    display: block;
+    text-align: left;
+}
+.cancel__btn {
+    --text-opacity: 1;
+    color: #fff;
+    color: rgba(255, 255, 255, var(--text-opacity));
+    margin-right: 1rem;
+    background-color: #718096;
+    border: none;
+    padding: 5px 11px;
+    font-weight: 500;
+    font-size: 16px;
+}
+.submit__btn {
+    --text-opacity: 1;
+    color: #fff;
+    color: rgba(255, 255, 255, var(--text-opacity));
+    margin-right: 1rem;
+    background-color: #000;
+    border: none;
+    padding: 5px 11px;
+    font-weight: 500;
+    font-size: 16px;
+}

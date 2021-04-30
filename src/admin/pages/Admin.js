@@ -7,6 +7,9 @@ import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
 import Header from '../components/Header/Header';
 import AdminHome from './AdminHome';
+import Categories from './Categories';
+import Orders from './Orders';
+import Products from './Products';
 
 const Admin = ({ match }) => {
     const dispatch = useDispatch();
@@ -23,6 +26,19 @@ const Admin = ({ match }) => {
                     <AdminPrivateRoute exact path={`${match.path}/`}>
                         <AdminHome />
                     </AdminPrivateRoute>
+
+                    <AdminPrivateRoute path={`${match.path}/products`}>
+                        <Products />
+                    </AdminPrivateRoute>
+
+                    <AdminPrivateRoute path={`${match.path}/orders`}>
+                        <Orders />
+                    </AdminPrivateRoute>
+
+                    <AdminPrivateRoute path={`${match.path}/category`}>
+                        <Categories />
+                    </AdminPrivateRoute>
+
                     <Route path={`${match.path}/sign-up`}>
                         <SignUp />
                     </Route>
