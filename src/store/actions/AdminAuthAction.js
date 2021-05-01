@@ -14,8 +14,6 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
             localStorage.setItem('admin-auth-token', `Bearer ${token}`);
             localStorage.setItem('auth-admin', JSON.stringify(user));
 
-            console.log(res.data);
-
             history.push(from);
 
             dispatch({
@@ -26,6 +24,7 @@ export const adminLogin = (userInfo, history, from) => async (dispatch) => {
                     token,
                 },
             });
+            window.location.reload();
         } else {
             dispatch({
                 type: Types.ADMIN_LOGIN_FAILURE,

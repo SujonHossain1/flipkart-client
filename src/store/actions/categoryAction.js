@@ -1,12 +1,13 @@
 /* eslint-disable import/prefer-default-export */
-import axios from 'axios';
+// import axios from 'axios';
+
 import admin from '../../helpers/adminInstance';
 import * as Types from '../constants';
 
 export const getCategories = () => async (dispatch) => {
     try {
         dispatch({ type: Types.GET_CATEGORIES_REQUEST });
-        const res = await axios.get('/api/categories');
+        const res = await admin.get('/api/categories');
         if (res.status === 200) {
             const { categories } = res.data;
             console.log(res.data);
@@ -36,13 +37,26 @@ export const getCategories = () => async (dispatch) => {
 };
 
 export const createCategory = (form) => async (dispatch) => {
+    dispatch({ type: Types.CREATE_CATEGORY_REQUEST });
     try {
         const res = await admin.post('/api/categories', form);
-        console.log(res.data);
-        dispatch({
-            type: 'POST',
-        });
+        if (res.status === 201) {
+            const { category, message } = res.data;
+            dispatch({
+                type: Types.CREATE_CATEGORY_SUCCESS,
+                category,
+                message,
+            });
+        } else {
+            dispatch({
+                type: Types.CREATE_CATEGORY_FAILURE,
+                error: res.data.error,
+            });
+        }
     } catch (error) {
-        console.log(error);
+        dispatch({
+            type: Types.CREATE_CATEGORY_FAILURE,
+            message: error?.response?.data?.error || error.message || 'Something went wrong!',
+        });
     }
 };
