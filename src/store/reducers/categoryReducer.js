@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as Types from '../constants';
 
 const init = {
@@ -6,6 +7,36 @@ const init = {
     loading: false,
     error: '',
     message: '',
+};
+
+const buildNewCategories = (id, categories, cat) => {
+    const myCategories = [];
+    const { _id, name, parentId, slug, image, children } = cat;
+    const createCategory = { _id, name, parentId, slug, image, children };
+
+    console.log(id, categories, cat);
+
+    categories.forEach((category) => {
+        if (category.parentId && category.parentId === id) {
+            myCategories.push({
+                ...category,
+                children:
+                    category.children && category.children.length > 0
+                        ? buildNewCategories(id, [...category.children, createCategory], category)
+                        : [],
+            });
+        } else {
+            myCategories.push({
+                ...category,
+                children:
+                    category.children && category.children.length > 0
+                        ? buildNewCategories(id, [...category.children], category)
+                        : [],
+            });
+        }
+    });
+
+    return myCategories;
 };
 
 const categoryReducer = (state = init, action) => {
@@ -36,13 +67,21 @@ const categoryReducer = (state = init, action) => {
                 lading: true,
             };
 
-        case Types.CREATE_CATEGORY_SUCCESS:
+        case Types.CREATE_CATEGORY_SUCCESS: {
+            const categories = buildNewCategories(
+                action.payload.category._id,
+                state.categories,
+                action.payload.category
+            );
+            console.log(categories);
             return {
                 ...state,
+                categories,
                 category: action.payload.category,
                 message: action.payload.message,
                 error: '',
             };
+        }
 
         case Types.CREATE_CATEGORY_FAILURE:
             return {

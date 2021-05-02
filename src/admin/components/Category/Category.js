@@ -37,7 +37,7 @@ const Category = () => {
         dispatch(createCategory(form));
     };
 
-    const renderCategories = (getCategories) => {
+    const renderCategories = (getCategories = []) => {
         const myCategories = [];
 
         getCategories.forEach((category) => {
@@ -53,7 +53,7 @@ const Category = () => {
         return myCategories;
     };
 
-    const createCategoryList = (getCategories, options = []) => {
+    const createCategoryList = (getCategories = [], options = []) => {
         getCategories.forEach((category) => {
             options.push({ value: category._id, name: category.name });
             if (category.children) {
@@ -63,6 +63,7 @@ const Category = () => {
 
         return options;
     };
+    const AllCategories = createCategoryList(categories);
 
     return (
         <div>
@@ -75,14 +76,6 @@ const Category = () => {
                 </div>
             </div>
             {show && (
-                // <AddCategory
-                //     setShow={setShow}
-                //     categoriesList={createCategoryList(categories)}
-                //     inputHandler={inputHandler}
-                //     submitHandler={submitHandler}
-                //     category={category}
-                // />
-
                 <div className="col-md-7 py-3">
                     <form onSubmit={submitHandler}>
                         <div className="input__group">
@@ -108,7 +101,7 @@ const Category = () => {
                                     defaultValue={category.parentId}
                                 >
                                     <option>Select Category</option>
-                                    {createCategoryList(categories).map((option) => (
+                                    {AllCategories.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.name}
                                         </option>

@@ -44,8 +44,10 @@ export const createCategory = (form) => async (dispatch) => {
             const { category, message } = res.data;
             dispatch({
                 type: Types.CREATE_CATEGORY_SUCCESS,
-                category,
-                message,
+                payload: {
+                    category,
+                    message,
+                },
             });
         } else {
             dispatch({
@@ -56,7 +58,7 @@ export const createCategory = (form) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: Types.CREATE_CATEGORY_FAILURE,
-            message: error?.response?.data?.error || error.message || 'Something went wrong!',
+            message: 'Something went wrong!',
         });
     }
 };
