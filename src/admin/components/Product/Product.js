@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../../store/actions/productAction';
 import createCategoryList from '../../helpers/createCategoryList';
+import ProductTable from './ProductTable';
 
 const Category = () => {
     const [show, setShow] = useState(false);
@@ -163,6 +164,7 @@ const Category = () => {
                     </form>
                 </div>
             )}
+            <ProductTable />
         </div>
     );
 };
