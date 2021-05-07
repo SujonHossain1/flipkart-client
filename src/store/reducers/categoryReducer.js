@@ -9,32 +9,32 @@ const init = {
     message: '',
 };
 
-const buildNewCategories = (id, categories, cat) => {
+const buildNewCategories = (parentId, categories, cat) => {
     const myCategories = [];
-    const { _id, name, parentId, slug, image, children } = cat;
-    const createCategory = { _id, name, parentId, slug, image, children };
 
-    console.log(id, categories, cat);
-
-    categories.forEach((category) => {
-        if (category.parentId && category.parentId === id) {
-            myCategories.push({
-                ...category,
-                children:
-                    category.children && category.children.length > 0
-                        ? buildNewCategories(id, [...category.children, createCategory], category)
-                        : [],
-            });
-        } else {
-            myCategories.push({
-                ...category,
-                children:
-                    category.children && category.children.length > 0
-                        ? buildNewCategories(id, [...category.children], category)
-                        : [],
-            });
-        }
-    });
+    if (parentId) {
+        categories.forEach((category) => {
+            if (category._id === parentId) {
+                myCategories.push({
+                    ...category,
+                    children:
+                        category.children && category.children.length > 0
+                            ? buildNewCategories(parentId, [...category.children, cat], category)
+                            : [],
+                });
+            } else {
+                myCategories.push({
+                    ...category,
+                    children:
+                        category.children && category.children.length > 0
+                            ? buildNewCategories(parentId, [...category.children], category)
+                            : [],
+                });
+            }
+        });
+    } else {
+        return [...categories, cat];
+    }
 
     return myCategories;
 };
@@ -68,16 +68,13 @@ const categoryReducer = (state = init, action) => {
             };
 
         case Types.CREATE_CATEGORY_SUCCESS: {
-            const categories = buildNewCategories(
-                action.payload.category._id,
-                state.categories,
-                action.payload.category
-            );
+            const { category } = action.payload;
+            const categories = buildNewCategories(category.parentId, state.categories, category);
             console.log(categories);
             return {
                 ...state,
                 categories,
-                category: action.payload.category,
+                category,
                 message: action.payload.message,
                 error: '',
             };

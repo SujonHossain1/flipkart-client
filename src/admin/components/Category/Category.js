@@ -6,13 +6,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCategory } from '../../../store/actions/categoryAction';
+import createCategoryList from '../../helpers/createCategoryList';
 import './Category.css';
 
 const Category = () => {
     const { categories, loading } = useSelector((state) => state.category);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
-    const [category, setCategory] = useState({});
+    const [category, setCategory] = useState({
+        name: '',
+        parentId: '',
+        slug: '',
+    });
     const [image, setImage] = useState(null);
 
     const inputHandler = (event) => {
@@ -25,16 +30,15 @@ const Category = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log(category, image);
         const form = new FormData();
-
         form.append('image', image);
         Object.keys(category).forEach((key) => {
             form.append(key, category[key]);
         });
-
-        console.log(form);
         dispatch(createCategory(form));
+
+        setCategory({});
+        event.target.reset();
     };
 
     const renderCategories = (getCategories = []) => {
@@ -53,16 +57,6 @@ const Category = () => {
         return myCategories;
     };
 
-    const createCategoryList = (getCategories = [], options = []) => {
-        getCategories.forEach((category) => {
-            options.push({ value: category._id, name: category.name });
-            if (category.children) {
-                createCategoryList(category.children, options);
-            }
-        });
-
-        return options;
-    };
     const AllCategories = createCategoryList(categories);
 
     return (

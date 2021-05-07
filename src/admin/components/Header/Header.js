@@ -30,7 +30,7 @@ const Header = () => {
                         {authenticate ? (
                             <button
                                 type="button"
-                                className="nav-link btn btn-danger btn-sm"
+                                className="btn btn-danger btn-sm "
                                 onClick={signOutHandler}
                             >
                                 Sign Out

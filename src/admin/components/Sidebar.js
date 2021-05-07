@@ -7,22 +7,22 @@ const Sidebar = () => {
             <div className="admin__sidebar">
                 <ul className="admin__sidebar__links">
                     <li className="admin__sidebar__link">
-                        <Link exact to="/admin/dashboard/">
+                        <Link exact="true" to="/admin/dashboard/">
                             Home
                         </Link>
                     </li>
                     <li className="admin__sidebar__link">
-                        <Link exact to="/admin/dashboard/category">
+                        <Link exact="true" to="/admin/dashboard/category">
                             Category
                         </Link>
                     </li>
                     <li className="admin__sidebar__link">
-                        <Link exact to="/admin/dashboard/products">
+                        <Link exact="true" to="/admin/dashboard/products">
                             Products
                         </Link>
                     </li>
                     <li className="admin__sidebar__link">
-                        <Link exact to="/admin/dashboard/orders">
+                        <Link exact="true" to="/admin/dashboard/orders">
                             Orders
                         </Link>
                     </li>

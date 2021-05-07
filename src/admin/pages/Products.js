@@ -1,9 +1,10 @@
 import Layout from '../components/Layout/Layout';
+import Product from '../components/Product/Product';
 
 const Products = () => {
     return (
         <Layout>
-            <h1>Products</h1>
+            <Product />
         </Layout>
     );
 };

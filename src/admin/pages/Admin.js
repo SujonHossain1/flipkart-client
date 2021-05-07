@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { isAdminLogin } from '../../store/actions/AdminAuthAction';
+import { getCategories } from '../../store/actions/categoryAction';
 import AdminPrivateRoute from '../AdminPrivateRoute';
 import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
@@ -16,6 +17,7 @@ const Admin = ({ match }) => {
 
     useEffect(() => {
         dispatch(isAdminLogin());
+        dispatch(getCategories());
     }, [dispatch]);
 
     return (
@@ -23,7 +25,7 @@ const Admin = ({ match }) => {
             <Header />
             <div className="container-fluid">
                 <Switch>
-                    <AdminPrivateRoute exact path={`${match.path}/`}>
+                    <AdminPrivateRoute exact="true" path={`${match.path}/`}>
                         <AdminHome />
                     </AdminPrivateRoute>
 
