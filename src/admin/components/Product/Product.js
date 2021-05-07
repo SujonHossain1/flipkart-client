@@ -13,7 +13,8 @@ const Category = () => {
     const [product, setProduct] = useState({});
     const dispatch = useDispatch();
     const [productPictures, setProductPictures] = useState([]);
-    const { categories, loading } = useSelector((state) => state.category);
+    const { categories } = useSelector((state) => state.category);
+    const { message, error, loading } = useSelector((state) => state.product);
 
     const AllCategories = createCategoryList(categories);
 
@@ -53,6 +54,8 @@ const Category = () => {
                     </button>
                 </div>
             </div>
+            {error && <p style={{ color: 'red' }}>{error} </p>}
+            {message && <p style={{ color: 'green' }}>{message} </p>}
             {show && (
                 <div className="col-md-7 py-3">
                     <form onSubmit={submitHandler}>
@@ -154,7 +157,7 @@ const Category = () => {
                                 Cancel
                             </button>
                             <button type="submit" className="submit__btn">
-                                Submit
+                                {loading ? 'Loading...' : 'Submit'}
                             </button>
                         </div>
                     </form>
