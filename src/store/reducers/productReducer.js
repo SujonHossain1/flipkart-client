@@ -10,6 +10,27 @@ const init = {
 
 const productReducer = (state = init, action) => {
     switch (action.type) {
+        /** **** Get Products **** */
+        case Types.GET_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case Types.GET_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                products: action.payload.products,
+                loading: false,
+                error: '',
+            };
+        case Types.GET_PRODUCTS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error,
+            };
+
+        /** **** Create Product ****  */
         case Types.CREATE_PRODUCT_REQUEST:
             return {
                 ...state,

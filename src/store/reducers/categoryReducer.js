@@ -41,6 +41,7 @@ const buildNewCategories = (parentId, categories, cat) => {
 
 const categoryReducer = (state = init, action) => {
     switch (action.type) {
+        /** **** Get Categories ***** */
         case Types.GET_CATEGORIES_REQUEST:
             return {
                 ...state,
