@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../../store/actions/productAction';
 import createCategoryList from '../../helpers/createCategoryList';
+import './Product.css';
 import ProductTable from './ProductTable';
 
 const Category = () => {

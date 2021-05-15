@@ -1,0 +1,20 @@
+.key {
+    font-weight: bold;
+    font-size: 14px;
+}
+.value {
+    font-size: 14px;
+}
+.productImageContainer {
+    display: flex;
+    overflow: hidden;
+}
+.productImage {
+    height: 100px;
+    width: 100px;
+}
+.productImage img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}

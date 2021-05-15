@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 import { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import ModalComponent from '../Modal/Modal';
 
@@ -9,17 +9,21 @@ const ProductTable = () => {
     const { products, loading } = useSelector((state) => state.product);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [productDetails, setProductDetails] = useState({});
+    const productDetailsModal = (product) => {
+        console.log(product)
+        setShow(true);
+        setProductDetails(product);
+    }
     return (
         <div className="pt-4">
             <Table responsive="sm">
                 <thead>
                     <tr>
-                        <th>Product Id</th>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Picture</th>
                         <th>Category</th>
                     </tr>
                 </thead>
@@ -27,20 +31,12 @@ const ProductTable = () => {
                     {loading
                         ? 'Loading...'
                         : products.map((product) => (
-                            <tr key={product._id} onClick={handleShow} >
+                            <tr key={product._id} onClick={() => productDetailsModal(product)}  >
                                 <td>1</td>
                                 <td> {product.name} </td>
                                 <td> {product.price} </td>
                                 <td> {product.quantity} </td>
-                                <td>
-                                    <img
-                                        src={`http://localhost:4000/public/${product.images[0]}`}
-                                        className="img-fluid"
-                                        width="100px"
-                                        alt=""
-                                    />
-                                </td>
-                                <td> -- </td>
+                                <td>  {product.category?.name} </td>
                             </tr>
                         ))}
                 </tbody>
@@ -49,10 +45,45 @@ const ProductTable = () => {
             <ModalComponent
                 show={show}
                 handleClose={handleClose}
-                handleShow={handleShow}
-            />
+                handleShow={productDetailsModal}
+                title="Product Details"
+                size="lg"
+            >
+                <Row>
+                    <Col md="6">
+                        <label className="key">Name: </label>
+                        <p className="value "> {productDetails.name} </p>
+                    </Col>
+                    <Col md="6">
+                        <label className="key">Price: </label>
+                        <p className="value "> {productDetails.price} </p>
+                    </Col>
+                    <Col md="6">
+                        <label className="key">Quantity: </label>
+                        <p className="value "> {productDetails.quantity} </p>
+                    </Col>
+                    <Col md="6">
+                        <label className="key">Category: </label>
+                        <p className="value "> {productDetails.category?.name} </p>
+                    </Col>
+                    <Col md="12">
+                        <label className="key">Description: </label>
+                        <p className="value "> {productDetails.description} </p>
+                    </Col>
+                    <Col >
+                        <label className="key">Product Image: </label>
+                        <div className="productImageContainer">
+                            {productDetails?.images?.map(image => (
+                                <div className="productImage">
+                                    <img width="100px" height="100px" src={`http://localhost:4000/public/${image}`} alt="" />
+                                </div>
+                            ))}
+                        </div>
+                    </Col>
+                </Row>
+            </ModalComponent>
 
-        </div>
+        </div >
     );
 };
 

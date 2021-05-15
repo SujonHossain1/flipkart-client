@@ -1,15 +1,15 @@
 import { Button, Modal } from 'react-bootstrap';
 
-const ModalComponent = ({ show, handleClose, children }) => {
+const ModalComponent = ({ show, handleClose, children, title, size }) => {
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Body>{children}</Modal.Body>
+        <Modal show={show} onHide={handleClose} size={size}>
+            <Modal.Body>
+                <h5> {title} </h5>
+                {children}
+            </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" className="btn-sm" onClick={handleClose}>
                     Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
                 </Button>
             </Modal.Footer>
         </Modal>
