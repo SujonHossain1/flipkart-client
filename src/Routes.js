@@ -16,7 +16,7 @@ const Routes = () => {
                 </Layout>
             </PrivateRoute>
             {/* ********* Admin App ********* */}
-            <Route path="/:categorySlug">
+            <Route path="/products/:categorySlug">
                 <Layout>
                     <Products />
                 </Layout>
