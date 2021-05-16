@@ -4,6 +4,7 @@ import Admin from './admin/pages/Admin';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Header from './components/Shared/Header/Header';
+import MenuHeader from './components/Shared/MenuHeader/MenuHeader';
 import PrivateRoute from './PrivateRoute';
 
 const Home = lazy(() => import('./components/Home/Home'));
@@ -13,6 +14,7 @@ const Routes = () => {
         <Switch>
             <PrivateRoute exact path="/">
                 <Header />
+                <MenuHeader />
                 <Suspense fallback={<div> Loading...</div>}>
                     <Home />
                 </Suspense>

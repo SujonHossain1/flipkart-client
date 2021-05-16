@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes';
 import { isUserLogin } from './store/actions/authAction';
+import { getCategories } from './store/actions/categoryAction';
 
 const App = memo(() => {
     const token = localStorage.getItem('user-auth-token');
@@ -20,6 +21,10 @@ const App = memo(() => {
             dispatch(isUserLogin());
         }
     }, [authenticate, dispatch]);
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
 
     return (
         <Router>

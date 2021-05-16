@@ -53,7 +53,6 @@ export const adminSignUp = (userInfo) => async (dispatch) => {
 
         if (res.status === 201) {
             const { message } = res.data;
-            // history.push('/admin/dashboard');
 
             dispatch({
                 type: Types.ADMIN_SIGNUP_SUCCESS,
