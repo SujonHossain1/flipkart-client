@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 :root {
     --primary: #2874f0;
+}
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0;
+}
+.customContainer {
+    width: 90%;
+    margin: 0 auto;
 }

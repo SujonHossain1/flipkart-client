@@ -1,0 +1,16 @@
+.product__container {
+    width: calc(100% - 20px);
+    margin: 10px;
+    border: 1px solid #cecece;
+    box-shadow: 0 0 2px gray;
+}
+
+.product__header {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid #cecece;
+}
+.productsContainer {
+    display: flex;
+}
