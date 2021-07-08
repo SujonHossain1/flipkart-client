@@ -4,6 +4,9 @@
 /* eslint-disable no-underscore-dangle */
 
 import { useState } from 'react';
+import CheckboxTree from 'react-checkbox-tree';
+import { BiChevronRight } from 'react-icons/bi';
+import { FiChevronDown } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCategory } from '../../../store/actions/categoryAction';
 import createCategoryList from '../../helpers/createCategoryList';
@@ -13,6 +16,8 @@ const Category = () => {
     const { categories, loading } = useSelector((state) => state.category);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
+    const [checked, setChecked] = useState([]);
+    const [expanded, setExpanded] = useState([]);
     const [category, setCategory] = useState({
         name: '',
         parentId: '',
@@ -45,14 +50,11 @@ const Category = () => {
         const myCategories = [];
 
         getCategories.forEach((category) => {
-            myCategories.push(
-                <li key={category._id}>
-                    {category.name}
-                    {category.children ? (
-                        <ul key={category._id}>{renderCategories(category.children)}</ul>
-                    ) : null}
-                </li>
-            );
+            myCategories.push({
+                label: category.name,
+                value: category._id,
+                children: category?.children?.length > 0 && renderCategories(category.children),
+            });
         });
         return myCategories;
     };
@@ -140,7 +142,23 @@ const Category = () => {
                 </div>
             )}
 
-            {loading ? <p>Loading...</p> : renderCategories(categories)}
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <CheckboxTree
+                    nodes={renderCategories(categories)}
+                    checked={checked}
+                    expanded={expanded}
+                    onCheck={(checked) => setChecked(checked)}
+                    onExpand={(expanded) => setExpanded(expanded)}
+                    icons={{
+                        expandClose: <BiChevronRight />,
+                        expandOpen: <FiChevronDown />,
+                        expandAll: <FiChevronDown />,
+                        collapseAll: <BiChevronRight />,
+                    }}
+                />
+            )}
         </div>
     );
 };
